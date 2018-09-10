@@ -5,5 +5,3 @@ const searchTracks = () => { };
 const searchPlaylists = () => { };
 
 export { search, searchAlbuns, searchArtists, searchTracks, searchPlaylists };
-
-
