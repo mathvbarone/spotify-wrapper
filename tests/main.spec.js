@@ -1,8 +1,8 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable no-unused-vars */
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import sinonStubPromise from 'sinon-stub-promise';
 import {
   search,
   searchAlbuns,
@@ -12,7 +12,6 @@ import {
 } from '../src/index';
 
 chai.use(sinonChai);
-sinonStubPromise(sinon);
 
 global.fetch = require('node-fetch');
 
@@ -35,30 +34,33 @@ describe('Spotify Wrapper', () => {
     });
   });
   describe('Generic Search', () => {
-    let fetchedStub;
+    let spotify;
+    let stubedFetch;
+    let promise;
 
     beforeEach(() => {
-      fetchedStub = sinon.stub(global, 'fetch');
+      stubedFetch = sinon.stub(global, 'fetch');
+      promise = stubedFetch.resolves({ json: () => ({ album: 'name' }) });
     });
 
     afterEach(() => {
-      fetchedStub.restore();
+      stubedFetch.restore();
     });
 
     it('it should call fetch function', () => {
       const artists = search();
-      expect(fetchedStub).to.have.been.called.calledOnce;
+      expect(stubedFetch).to.have.been.called.calledOnce;
     });
 
     it('it should receive the correct URL to fetch', () => {
       context('passing one type', () => {
         const artists = search('Incubus', 'artist');
         const albums = search('Incubus', 'album');
-        expect(fetchedStub).to.have.been.calledWith(
+        expect(stubedFetch).to.have.been.calledWith(
           'https://api.spotify.com/v1/search?q=Incubus&type=artist'
         );
 
-        expect(fetchedStub).to.have.been.calledWith(
+        expect(stubedFetch).to.have.been.calledWith(
           'https://api.spotify.com/v1/search?q=Incubus&type=album'
         );
       });
@@ -66,7 +68,7 @@ describe('Spotify Wrapper', () => {
       context('passing more than one type', () => {
         const artistsAndAlbums = search('Incubus', ['artist', 'album']);
 
-        expect(fetchedStub).to.have.been.calledWith(
+        expect(stubedFetch).to.have.been.calledWith(
           'https://api.spotify.com/v1/search?q=Incubus&type=artist,album'
         );
       });

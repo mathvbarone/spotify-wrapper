@@ -5,10 +5,7 @@
     "mocha": true
   },
   "rules": {
-    "comma-dangle": [
-      "error",
-      "never"
-    ],
+    "comma-dangle": ["error", "never"],
     "linebreak-style": 0,
     "no-unused-expressions": 0,
     "chai-friendly/no-unused-expressions": 2,
@@ -21,10 +18,7 @@
         }
       }
     ],
-    "arrow-body-style": [
-      "error",
-      "as-needed"
-    ],
+    "arrow-body-style": ["error", "as-needed"],
     "no-confusing-arrow": [
       "error",
       {
@@ -38,7 +32,5 @@
       }
     ]
   },
-  "plugins": [
-    "chai-friendly"
-  ]
+  "plugins": ["chai-friendly"]
 }
