@@ -16,9 +16,6 @@
       "text",
       "html"
     ],
-    "lines": 80,
-    "functions": 20,
-    "check-coverage": true,
     "exclude": [
       "tests/**",
       "babel.config.js"
