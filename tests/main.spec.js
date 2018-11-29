@@ -35,16 +35,23 @@ describe('Spotify Wrapper', () => {
     });
   });
   describe('Generic Search', () => {
-    it('it should call fetch function', () => {
-      const fetchedStub = sinon.stub(global, 'fetch');
-      const artists = search();
-      expect(fetchedStub).to.have.been.called.calledOnce;
+    let fetchedStub;
 
+    beforeEach(() => {
+      fetchedStub = sinon.stub(global, 'fetch');
+    });
+
+    afterEach(() => {
       fetchedStub.restore();
     });
+
+    it('it should call fetch function', () => {
+      const artists = search();
+      expect(fetchedStub).to.have.been.called.calledOnce;
+    });
+
     it('it should receive the correct URL to fetch', () => {
       context('passing one type', () => {
-        const fetchedStub = sinon.stub(global, 'fetch');
         const artists = search('Incubus', 'artist');
         const albums = search('Incubus', 'album');
         expect(fetchedStub).to.have.been.calledWith(
@@ -54,10 +61,9 @@ describe('Spotify Wrapper', () => {
         expect(fetchedStub).to.have.been.calledWith(
           'https://api.spotify.com/v1/search?q=Incubus&type=album'
         );
-        fetchedStub.restore();
       });
+
       context('passing more than one type', () => {
-        const fetchedStub = sinon.stub(global, 'fetch');
         const artistsAndAlbums = search('Incubus', ['artist', 'album']);
 
         expect(fetchedStub).to.have.been.calledWith(
