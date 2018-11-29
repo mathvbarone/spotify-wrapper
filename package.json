@@ -6,20 +6,9 @@
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
     "lint": "./node_modules/.bin/eslint src/*.js",
-    "prepush": "npm run lint && npm run test:coverage",
+    "prepush": "npm run lint",
     "test": "./node_modules/.bin/mocha tests/**/*.spec.js --require @babel/register",
-    "test:tdd": "./node_modules/.bin/mocha tests/**/*.spec.js --require @babel/register --watch",
-    "test:coverage": "nyc npm test"
-  },
-  "nyc": {
-    "reporter": [
-      "text",
-      "html"
-    ],
-    "exclude": [
-      "tests/**",
-      "babel.config.js"
-    ]
+    "test:tdd": "./node_modules/.bin/mocha tests/**/*.spec.js --require @babel/register --watch"
   },
   "repository": {
     "type": "git",
@@ -55,7 +44,6 @@
     "mini-css-extract-plugin": "^0.4.0",
     "mocha": "^5.2.0",
     "node-fetch": "^2.2.0",
-    "nyc": "^13.0.1",
     "sinon": "^6.2.0",
     "sinon-chai": "^3.2.0",
     "sinon-stub-promise": "^4.0.0",
